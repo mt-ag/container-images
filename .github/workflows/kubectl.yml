@@ -1,0 +1,32 @@
+name: build kubectl images
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "kubectl/**" ]
+  pull_request:
+    paths: [ "kubectl/**" ]
+  schedule:
+  - cron:  '00 6 * * *'
+
+jobs:
+  build-and-push-kubectl:
+    strategy:
+      matrix:
+        version: ["1.23", "1.24", "1.25", "1.26"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Image
+      run: |
+        docker build . --file kubectl/Dockerfile --build-arg KUBECTL_VERSION=${{ matrix.version }} --tag demtag/kubectl:${{ matrix.version }}
+    - name: Login to Dockerhub
+      if: github.event_name == 'push' && github.ref_name == "main"
+      run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Push Image
+      if: github.event_name == 'push' && github.ref_name == "main"
+      run: |
+        docker push demtag/kubectl:${{ matrix.version }}
