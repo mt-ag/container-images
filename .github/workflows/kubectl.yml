@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build Image
       run: |
-        docker build . --file kubectl/Dockerfile --build-arg KUBECTL_VERSION=${{ matrix.version }} --tag demtag/kubectl:${{ matrix.version }}
+        docker build ./kubectl --file kubectl/Dockerfile --build-arg KUBECTL_VERSION=${{ matrix.version }} --tag demtag/kubectl:${{ matrix.version }}
     - name: Login to Dockerhub
       if: github.event_name == 'push' && github.ref_name == 'main'
       run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
