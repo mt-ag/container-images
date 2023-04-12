@@ -1,0 +1,31 @@
+name: build java base images
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "java-base-image/**" ]
+  pull_request:
+    paths: [ "java-base-image/**" ]
+
+jobs:
+  build-and-push-otel-java-base-images:
+    strategy:
+      matrix:
+        dist: ["corretto", "temurin"]
+        version: ["11", "17"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Image
+      run: |
+        docker build ./java-base-image -f java-base-image/dockerfiles/${{ matrix.dist }}-${{ matrix.version }}.Dockerfile --tag demtag/java-base-image:${{ matrix.dist }}-${{ matrix.version }}-preview
+    - name: Login to Dockerhub
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Push Image
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: |
+        docker push demtag/java-base-image:${{ matrix.dist }}-${{ matrix.version }}-preview
