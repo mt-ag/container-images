@@ -2,7 +2,8 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/dd7d2f2dc4684f96b13914a14b5a73a2)](https://app.codacy.com/gh/mt-ag/container-images/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-This repository contains several Container Images that are used, developed and maintained by the MT.
+This repository contains the build files for several container images that are used, developed and maintained by the MT.
+The table gives you an overview of the contents of this repository.
 
 |Image|Description|Dockerhub|
 |---|---|---|
