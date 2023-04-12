@@ -5,7 +5,7 @@ FROM bitnami/kubectl:${KUBECTL_VERSION}
 USER root
 
 RUN apt-get update \
-    && apt-get install -y gettext-base \
+    && apt-get --no-install-recommends install -y gettext-base=0.21-4 \
     && rm -rf /var/lib/apt/lists/*
 
 USER 1001
