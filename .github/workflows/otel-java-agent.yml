@@ -1,0 +1,30 @@
+name: build otel-java-agent images
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "otel-java-agent/**" ]
+  pull_request:
+    paths: [ "otel-java-agent/**" ]
+
+jobs:
+  build-and-push-otel-java-agent:
+    strategy:
+      matrix:
+        version: ["1.23.0", "1.24.0"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Image
+      run: |
+        docker build ./otel-java-agent --build-arg AGENT_VERSION=${{ matrix.version }} --tag demtag/otel-javaagent:${{ matrix.version }}
+    - name: Login to Dockerhub
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Push Image
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: |
+        docker push demtag/otel-javaagent:${{ matrix.version }}
