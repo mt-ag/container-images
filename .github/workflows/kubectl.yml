@@ -21,12 +21,12 @@ jobs:
       run: |
         docker build . --file kubectl/Dockerfile --build-arg KUBECTL_VERSION=${{ matrix.version }} --tag demtag/kubectl:${{ matrix.version }}
     - name: Login to Dockerhub
-      if: github.event_name == 'push' && github.ref_name == "main"
+      if: github.event_name == 'push' && github.ref_name == 'main'
       run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push Image
-      if: github.event_name == 'push' && github.ref_name == "main"
+      if: github.event_name == 'push' && github.ref_name == 'main'
       run: |
         docker push demtag/kubectl:${{ matrix.version }}
