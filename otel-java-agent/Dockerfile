@@ -1,6 +1,6 @@
 FROM alpine:3.17.2
 
-ARG AGENT_VERSION="1.23.0"
+ARG AGENT_VERSION="1.28.0"
 
 WORKDIR /app
 COPY checksum-${AGENT_VERSION}.txt /app/
