@@ -4,9 +4,9 @@ This repository contains a Docker image based on the latest stable version of Ub
 
 ## Docker Image Details
 
--   **Base Image**: Ubuntu (latest stable version)
--   **Package Managers**: Helm, OpenShift CLI (oc)
--   **Image Size**: The size of the image is kept minimal to reduce resource consumption.
+-  **Base Image**: Ubuntu (latest stable version)
+-  **Package Managers**: Helm, OpenShift CLI (oc)
+-  **Image Size**: The size of the image is kept minimal to reduce resource consumption.
 
 
 ## Included Tools
