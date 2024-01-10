@@ -1,0 +1,33 @@
+name: build kubectl images
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "helm-oc/**" ]
+  pull_request:
+    paths: [ "helm-oc/**" ]
+  schedule:
+  - cron:  '15 6 * * *'
+
+jobs:
+  build-and-push-helm-oc:
+    strategy:
+      matrix:
+        helm-version: ["3"]
+        oc-version: ["4.10.58", "4.11.56", "4.12.46", "4.13.9", "4.14.8"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Image
+      run: |
+        docker build ./helm-oc --file helm-oc/Dockerfile --build-arg HELM_VERSION=${{ matrix.helm-version }} --build-arg OCP_VERSION=${{ matrix.oc-version }} --tag demtag/helm-oc:h${{ matrix.helm-version }}-o${{ matrix.oc-version }}
+    - name: Login to Dockerhub
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Push Image
+      if: github.event_name == 'push' && github.ref_name == 'main'
+      run: |
+        docker push demtag/helm-oc:h${{ matrix.helm-version }}-o${{ matrix.oc-version }}
