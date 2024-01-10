@@ -1,4 +1,4 @@
-name: build kubectl images
+name: build helm-oc images
 
 on:
   push:
