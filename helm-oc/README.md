@@ -1,13 +1,12 @@
 # Helm-oc Docker Image
-This repository contains a Docker image based on the latest stable version of Ubuntu, designed to provide an environment with Helm, OpenShift CLI (oc), and OpenShift Client tools installed. This image is useful for users who need a lightweight containerized environment for managing Kubernetes clusters, deploying applications using Helm, and interacting with OpenShift-specific resources.
 
+This repository contains a Docker image based on the latest stable version of Ubuntu, designed to provide an environment with Helm, OpenShift CLI (oc), and OpenShift Client tools installed. This image is useful for users who need a lightweight containerized environment for managing Kubernetes clusters, deploying applications using Helm, and interacting with OpenShift-specific resources.
 
 ## Docker Image Details
 
--  **Base Image**: Ubuntu (latest stable version)
--  **Package Managers**: Helm, OpenShift CLI (oc)
--  **Image Size**: The size of the image is kept minimal to reduce resource consumption.
-
+- **Base Image**: Ubuntu (latest stable version)
+- **Package Managers**: Helm, OpenShift CLI (oc)
+- **Image Size**: The size of the image is kept minimal to reduce resource consumption.
 
 ## Included Tools
 
@@ -27,10 +26,9 @@ To use this Docker image, you must have Docker installed on your system.
 
 You can pull the latest version of the image from Docker Hub using the following command:
 
-
 You can pull the latest version of the image from Docker Hub using the following command:
 
-`docker pull demtag/helm-oc:latest` 
+`docker pull demtag/helm-oc:latest`
 
 ### Running the Container
 

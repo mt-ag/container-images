@@ -1,7 +1,8 @@
 FROM ubuntu:22.04
 
-RUN apt-get update
-RUN apt-get install curl -y
+RUN apt-get update && apt-get install curl=7.81.0-1ubuntu1.15 -y --no-install-recommends \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
