@@ -7,6 +7,7 @@ The table gives you an overview of the contents of this repository.
 
 |Image|Description|Dockerhub|
 |---|---|---|
+|[java-base-image](./java-base-image/README.md)|A java image that supports adding custom CA's at runtime and simplifies OpenTelemtry instrumentation|[![Docker Pulls](https://img.shields.io/docker/pulls/demtag/java-base-image)](https://hub.docker.com/r/demtag/java-base-image)|
 |[kubectl](./kubectl/README.md)|Extended kubectl image to make easier deployments from CI/CD systems|[![Docker Pulls](https://img.shields.io/docker/pulls/demtag/kubectl)](https://hub.docker.com/r/demtag/kubectl)|
 |[otel-java-agent](./otel-java-agent/README.md)|Simple container image holding the [OpenTelemtry Java Agent](https://github.com/open-telemetry/opentelemetry-java-instrumentation) that can be used for creating Kubernetes Sidecars|[![Docker Pulls](https://img.shields.io/docker/pulls/demtag/otel-javaagent)](https://hub.docker.com/r/demtag/otel-javaagent)|
 |[helm-oc](./helm-oc/README.md)|Docker Image which contains Helm and Openshift Container Platform CLI|[![Docker Pulls](https://img.shields.io/docker/pulls/demtag/helm-oc)](https://hub.docker.com/r/demtag/helm-oc)|
